@@ -1,0 +1,7 @@
+.DS_Store
+Thumbs.db
+node_modules/
+*.log
+.env
+paul-y-luisa-*.json
+CONTEXTO_Y_HOJA_DE_RUTA.md

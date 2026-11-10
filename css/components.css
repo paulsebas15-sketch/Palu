@@ -1,0 +1,64 @@
+/* Componentes reutilizables */
+.card{background:var(--card);border-radius:22px;padding:14px 16px;margin-bottom:12px;backdrop-filter:blur(8px)}
+.seg{display:flex;background:var(--card);border-radius:16px;padding:4px;margin-bottom:12px;overflow:hidden;gap:2px}
+.seg button{flex:1 1 auto;min-width:0;border:0;background:none;color:var(--mut);padding:8px 4px;border-radius:12px;font:inherit;font-size:12px;white-space:nowrap;cursor:pointer}
+.seg button.on{background:var(--acc);color:var(--on);font-weight:600}
+.btn{border:0;background:var(--acc);color:var(--on);padding:11px 16px;border-radius:14px;font:inherit;font-weight:600;cursor:pointer}
+.btn.sec{background:var(--card2);color:var(--txt)}
+.btn.bad{background:var(--bad);color:#fff}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:12px}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;background:var(--acc)}
+.chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;background:var(--card2);color:var(--txt)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+.item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;gap:8px}
+.item:last-child{border:0}
+.note{background:var(--card2);border-radius:14px;padding:10px 12px;font-size:13px;color:var(--mut);margin-bottom:12px}
+.err{color:var(--bad);font-size:13px}
+
+/* Formularios */
+input,select,textarea{width:100%;background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit;margin-top:4px}
+label{display:block;font-size:13px;color:var(--mut);margin-top:10px}
+label.chk{display:flex;gap:8px;align-items:center;color:var(--txt)}
+label.chk input{width:auto;margin:0}
+.inline-in{width:110px;display:inline;padding:4px 8px;margin:0}
+
+/* Hoja inferior (modal) y aviso */
+#sheet{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:9}
+#sheet.show{display:flex}
+.sh{background:var(--sheet);width:100%;max-width:480px;max-height:92vh;overflow:auto;border-radius:26px 26px 0 0;padding:18px 16px 28px}
+#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--txt);color:var(--bgimg);padding:10px 16px;border-radius:14px;font-size:13px;z-index:20;max-width:90%;display:none}
+body[data-theme=dark] #toast{color:#14131a}
+body[data-theme=pastel] #toast{color:#fff}
+
+/* Calendario (Comida y Planes): cada día muestra los íconos de lo que pasó */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;font-size:12px}
+.cal>div{padding:4px 0;border-radius:10px;min-height:56px;cursor:pointer}
+.cal>.h{color:var(--mut);min-height:0;font-size:11px;cursor:default}
+.cal>.t{outline:2px solid var(--acc)}
+.cal>.sel{background:var(--card2)}
+.cal .ee{display:block;font-size:14px;line-height:1.15;word-break:break-all}
+.cal .ee.fade{opacity:.45}
+.cal .dd{display:flex;justify-content:center;gap:2px;margin-top:2px}
+.cal .dd i{width:6px;height:6px;border-radius:50%}
+
+/* Selector de emojis y fichas */
+.emojis{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.emojis button{font-size:22px;border:2px solid transparent;background:var(--card2);border-radius:12px;width:42px;height:42px;cursor:pointer}
+.emojis button.on{border-color:var(--acc)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.tile{background:var(--card2);border-radius:14px;padding:8px 4px;text-align:center;font-size:11px;border:2px solid transparent}
+.tile b{display:block;font-size:22px;font-weight:400}
+.tile.ok{border-color:var(--ok)}.tile.mid{border-color:var(--warn)}.tile.no{opacity:.55}
+.emo{font-size:22px;margin-right:8px}
+
+/* Recuerdos (Planes) */
+.pol{background:#fff;color:#333;border-radius:8px;padding:8px 8px 12px;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+.pol img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;display:block;background:#ddd}
+.pol .ph{width:100%;aspect-ratio:1;border-radius:4px;background:#eee;display:grid;place-items:center;font-size:30px}
+.pol p{margin:6px 0 0;font-size:12px}
+.ph2{display:flex;gap:6px;overflow:auto;margin:8px 0}
+.ph2 img{height:90px;border-radius:10px}
+
+/* Inicio de sesión */
+.login{max-width:360px;margin:60px auto 0}

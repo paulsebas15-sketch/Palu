@@ -1,0 +1,3 @@
+/* Temas: cada persona elige el suyo (dark | pastel). Se aplica con body[data-theme] */
+body[data-theme=dark]{--bgimg:#14131a;--card:#1f1e29;--card2:#2a2938;--txt:#f1eff8;--mut:#9a97ad;--acc:#a78bfa;--on:#14131a;--ok:#4fd1a1;--warn:#f5b544;--bad:#fb7185;--paul:#8ab4ff;--luisa:#f9a8d4;--line:#34324a;--nav:#1b1a24;--sheet:#1f1e29}
+body[data-theme=pastel]{--bgimg:linear-gradient(160deg,#fde7ef 0%,#ebe4fb 50%,#fde9dc 100%);--card:rgba(255,255,255,.72);--card2:rgba(255,255,255,.95);--txt:#3b2a4a;--mut:#8a7a98;--acc:#e0709f;--on:#fff;--ok:#4aa88a;--warn:#d9922b;--bad:#d9546b;--paul:#7f8fe0;--luisa:#e0709f;--line:#ecd9e6;--nav:rgba(255,255,255,.85);--sheet:#fff4f8}
