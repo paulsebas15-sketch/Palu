@@ -19,7 +19,7 @@ $$;
 -- 2) Gastos de la casa
 create table if not exists categorias_gasto (
   id uuid primary key default gen_random_uuid(),
-  nombre text not null,
+  nombre text not null unique,
   tipo text not null check (tipo in ('fija','variable')),
   icono text,
   created_at timestamptz default now()
@@ -71,7 +71,7 @@ create table if not exists pecados (
 );
 create table if not exists retos (
   id uuid primary key default gen_random_uuid(),
-  texto text not null,
+  texto text not null unique,
   created_at timestamptz default now()
 );
 create table if not exists retos_pendientes (

@@ -15,19 +15,25 @@ on conflict (id) do nothing;
 -- Categorías de gasto
 insert into categorias_gasto (nombre, tipo, icono) values
   ('Arriendo','fija','🏠'), ('Parqueadero','fija','🚗'), ('Internet','fija','📶'), ('Administración','fija','🏢'), ('Crédito hipotecario','fija','🏦'), ('GYM','fija','🏋️'),
-  ('Mercado','variable','🛒'), ('Servicios públicos','variable','💡'), ('Gas','variable','🔥');
+  ('Mercado','variable','🛒'), ('Servicios públicos','variable','💡'), ('Gas','variable','🔥')
+on conflict (nombre) do nothing;
 
 -- Retos compensatorios
 insert into retos (texto) values
-  ('Caminata de 30 minutos'), ('Cocinar una comida sana en casa'), ('Un día sin dulce'), ('Ensalada completa en la cena');
+  ('Caminata de 30 minutos'), ('Cocinar una comida sana en casa'), ('Un día sin dulce'), ('Ensalada completa en la cena')
+on conflict (texto) do nothing;
 
 -- Fechas recurrentes (edita las fechas en la app: Planes → Fechas)
-insert into planes (nombre, estado, fecha, recurrente, icono) values
-  ('Aniversario de noviazgo', 'planeado', null, true, '💍'),
-  ('Cumpleaños de Paul',      'planeado', null, true, '🎂'),
-  ('Cumpleaños de Luisa',     'planeado', null, true, '🎂'),
+insert into planes (nombre, estado, fecha, recurrente, icono)
+select v.nombre, v.estado, v.fecha::date, v.recurrente, v.icono
+from (values
+  ('Aniversario de noviazgo', 'planeado', null,         true, '💍'),
+  ('Cumpleaños de Paul',      'planeado', null,         true, '🎂'),
+  ('Cumpleaños de Luisa',     'planeado', null,         true, '🎂'),
   ('Navidad',                 'planeado', '2026-12-25', true, '🎄'),
-  ('Halloween',               'planeado', '2026-10-31', true, '🎃');
+  ('Halloween',               'planeado', '2026-10-31', true, '🎃')
+) as v(nombre, estado, fecha, recurrente, icono)
+where not exists (select 1 from planes p where p.nombre = v.nombre and p.recurrente);
 
 -- ------------------------------------------------------------
 -- PASO MANUAL: habilitar a Paul y a Luisa
