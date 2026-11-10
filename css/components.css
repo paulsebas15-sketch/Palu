@@ -10,6 +10,11 @@
 .bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;border-radius:6px;background:var(--acc)}
 .chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;background:var(--card2);color:var(--txt)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chips .chip{cursor:pointer;border:1px solid var(--line)}
+.chip.on{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.leg-row{display:flex;justify-content:space-between;align-items:center;padding:7px 8px;border-radius:10px;cursor:pointer;gap:8px;font-size:13px}
+.leg-row.on{background:var(--card2)}
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
 .item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;gap:8px}
 .item:last-child{border:0}

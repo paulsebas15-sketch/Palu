@@ -28,6 +28,7 @@ js/
   app.js              Arranque, navegación y render
   views/
     inicio.js  gastos.js  comida.js  planes.js  ajustes.js    Una por pantalla
+    graficos.js       Gráficos de Gastos (torta, histórico por categoría, ahorro por periodo)
 supabase/
   schema.sql          Tablas, seguridad (RLS), bucket de fotos, tiempo real
   seed.sql            Reglas, categorías, retos, fechas y enlace de usuarios

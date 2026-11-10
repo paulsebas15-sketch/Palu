@@ -1,6 +1,8 @@
 /* Arranque, navegación y render principal */
 // ui: pestaña actual, sub-pestañas, y día seleccionado en cada calendario
-const ui = { tab: 'inicio', sub: { gastos: 'resumen', comida: 'panel', planes: 'tablero' }, dia: { comida: null, planes: null } };
+const ui = { tab: 'inicio', sub: { gastos: 'resumen', comida: 'panel', planes: 'tablero' }, dia: { comida: null, planes: null },
+  // selecciones de los gráficos de Gastos
+  graf: { filtro: 'todo', pieSel: null, histCat: null, histSel: null, ahoSel: null } };
 
 function go(t) { ui.tab = t; render(); }
 

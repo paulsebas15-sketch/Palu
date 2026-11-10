@@ -48,11 +48,13 @@ function vGastos() {
       return `<div style="margin-bottom:12px"><div class="row"><b><span class="emo">${ico('cats', c)}</span>${esc(c.n)}</b><span class="mut">${money(e)} / <input class="inline-in" type="number" inputmode="numeric" value="${b || ''}" placeholder="Presupuesto" onchange="setPresu('${esc(c.n)}',this.value)"></span></div><div class="bar" style="margin-top:6px"><i style="width:${pct}%;background:${col}"></i></div></div>`;
     }).join('')}</div>`).join('');
     h += `<div class="card"><div class="row"><b>Total</b><span>${money(te)} de ${money(tp)}</span></div></div>`;
+    h += graficoTorta(m) + graficoHistorico();   // gráficos: js/views/graficos.js
   }
 
   if (s === 'ahorro') {
     const lista = [...S.ahorros].sort((a, b) => b.fecha.localeCompare(a.fecha));
     h += `<div class="card"><div class="mut">Ahorro acumulado</div><div class="big">${money(ahorroTotal())}</div><br><button class="btn" onclick="formAhorro(${t.pend})">Registrar ingreso a ahorro</button></div>
+    ${graficoAhorro()}
     <div class="card"><h3>Historial</h3>${lista.length ? lista.map(x => `<div class="item" onclick="delAhorro('${x.id}')"><div><b>${money(x.valor)}</b><div class="mut">${fechaTxt(x.fecha)} · ${x.quien} · periodo ${mesNombre(x.mes)}</div></div><span class="mut">quitar</span></div>`).join('') : '<p class="mut">Aún no hay ingresos al ahorro.</p>'}</div>`;
   }
   return h;
