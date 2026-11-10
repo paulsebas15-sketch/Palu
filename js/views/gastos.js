@@ -113,9 +113,37 @@ function saveAhorro() {
 }
 function delAhorro(id) { if (confirm('¿Quitar este ingreso al ahorro?')) { Data.del('ahorros', id); render(); } }
 
+const nombreRepetido = (n, idPropio) => S.cats.some(x => x.id !== idPropio && x.n.toLowerCase() === n.toLowerCase());
+
 function formCats() {
-  openSheet(`<h2>Categorías</h2>${S.cats.map(c => `<div class="item" onclick="delCat('${c.id}')"><span><span class="emo">${ico('cats', c)}</span>${esc(c.n)} <span class="chip">${c.t}</span></span><span class="mut">quitar</span></div>`).join('')}
-  <label>Nueva categoría<input id="c_n"></label><label>Ícono</label>${emojiPicker('c_i', 'cats', '🧾')}<label>Tipo<select id="c_t"><option value="fija">Fija</option><option value="variable">Variable</option></select></label><br><button class="btn" onclick="addCat()">Agregar</button>`);
+  openSheet(`<h2>Categorías</h2><p class="mut">Toca una para editarla.</p>${S.cats.map(c => `<div class="item" onclick="formCat('${c.id}')"><span><span class="emo">${ico('cats', c)}</span>${esc(c.n)} <span class="chip">${c.t}</span></span><span class="mut">editar ›</span></div>`).join('')}
+  <h3 style="margin-top:16px">Nueva categoría</h3>
+  <label>Nombre<input id="c_n"></label><label>Ícono (toca uno o escribe el tuyo)</label>${emojiPicker('c_i', 'cats', '🧾')}
+  <label>Tipo<select id="c_t"><option value="fija">Fija</option><option value="variable">Variable</option></select></label><div id="err" class="err"></div><br><button class="btn" onclick="addCat()">Agregar</button>`);
 }
-function addCat() { const n = $('#c_n').value.trim(); if (!n) return; Data.add('cats', { n, t: $('#c_t').value, icono: $('#c_i').value || '🧾' }); formCats(); render(); }
-function delCat(id) { if (confirm('¿Quitar categoría? Los gastos ya registrados se conservan.')) { Data.del('cats', id); formCats(); render(); } }
+function addCat() {
+  const n = $('#c_n').value.trim();
+  if (!n) return $('#err').textContent = 'Escribe un nombre';
+  if (nombreRepetido(n)) return $('#err').textContent = 'Ya existe una categoría con ese nombre';
+  Data.add('cats', { n, t: $('#c_t').value, icono: $('#c_i').value || '🧾' }); formCats(); render();
+}
+function formCat(id) {
+  const c = S.cats.find(x => x.id === id); if (!c) return;
+  openSheet(`<h2>Editar categoría</h2>
+  <label>Nombre<input id="e_n" value="${esc(c.n)}"></label>
+  <label>Ícono (toca uno o escribe el tuyo)</label>${emojiPicker('e_i', 'cats', ico('cats', c))}
+  <label>Tipo<select id="e_t"><option value="fija" ${c.t === 'fija' ? 'selected' : ''}>Fija</option><option value="variable" ${c.t === 'variable' ? 'selected' : ''}>Variable</option></select></label>
+  <div class="mut" style="margin-top:8px">Si cambias el nombre, los gastos y presupuestos de esta categoría se actualizan solos.</div>
+  <div id="err" class="err"></div><br>
+  <div class="row"><button class="btn" onclick="saveCat('${id}')">Guardar</button><button class="btn bad" onclick="delCat('${id}')">Quitar</button></div>
+  <br><button class="btn sec" style="width:100%" onclick="formCats()">‹ Volver a categorías</button>`);
+}
+function saveCat(id) {
+  const c = S.cats.find(x => x.id === id), n = $('#e_n').value.trim();
+  if (!n) return $('#err').textContent = 'Escribe un nombre';
+  if (nombreRepetido(n, id)) return $('#err').textContent = 'Ya existe una categoría con ese nombre';
+  if (n !== c.n) Data.renameCat(id, n);
+  Data.upd('cats', id, { t: $('#e_t').value, icono: $('#e_i').value || ico('cats', c) });
+  formCats(); render();
+}
+function delCat(id) { if (confirm('¿Quitar esta categoría? Los gastos ya registrados se conservan, pero dejará de salir en el presupuesto.')) { Data.del('cats', id); formCats(); render(); } }

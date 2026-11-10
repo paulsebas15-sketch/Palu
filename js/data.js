@@ -51,6 +51,15 @@ const Data = {
   upd(key, id, patch) { const o = S[key].find(x => x.id === id); if (!o) return; Object.assign(o, patch); this.saveLocal(); this._sync(() => DB.update(key, id, patch)); },
   del(key, id) { S[key] = S[key].filter(x => x.id !== id); this.saveLocal(); this._sync(() => DB.remove(key, id)); },
 
+  // Renombrar una categoría de gasto: también actualiza los gastos y presupuestos que la usan (se enlazan por nombre)
+  renameCat(id, nuevo) {
+    const c = S.cats.find(x => x.id === id); if (!c || c.n === nuevo) return;
+    const viejo = c.n; c.n = nuevo;
+    S.gastos.forEach(g => { if (g.cat === viejo) g.cat = nuevo; });
+    Object.values(S.presu).forEach(p => { if (viejo in p) { p[nuevo] = p[viejo]; delete p[viejo]; } });
+    this.saveLocal(); this._sync(() => DB.renameCategoria(id, viejo, nuevo));
+  },
+
   setPresu(mes, cat, v) { (S.presu[mes] = S.presu[mes] || {})[cat] = v; this.saveLocal(); this._sync(() => DB.upsertPresu(mes, cat, v)); },
 
   addHist(planId, h) {

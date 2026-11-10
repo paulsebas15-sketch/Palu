@@ -31,13 +31,23 @@ function periodoSel() {
 }
 
 /* ---- Selector de ícono (emoji) para categorías, reglas y planes ---- */
+const uniq = a => [...new Set(a)];
 const EMOJIS = {
-  cats: ['🏠', '🏋️', '🍽️', '☕', '🎬', '✈️', '🚗', '📶', '🏢', '🏦', '🛒', '💡', '🔥', '💧', '📱', '🧾', '🐶', '🧴', '🩺', '🎓', '🧺'],
-  reglas: ['🍔', '🍰', '🥐', '🍟', '🍕', '🥤', '🍫', '🍦', '🍩', '🌭', '🍿', '🍺'],
-  planes: ['💍', '🎂', '🎄', '🎃', '🎬', '🍽️', '🏖️', '🏔️', '🎉', '✈️', '🧺', '🎮', '🎵', '🛍️', '🎁', '💞', '🚲', '☕', '🎢', '🌅']
+  // Gastos
+  cats: uniq(['🏠', '🏋️', '🍽️', '☕', '🎬', '✈️', '🚗', '📶', '🏢', '🏦', '🛒', '💡', '🔥', '💧', '📱', '🧾', '🐶', '🐱', '🧴', '🩺', '🎓',
+    '🧺', '⛽', '🚌', '🚕', '🛵', '🅿️', '🔧', '🧹', '🛋️', '📺', '🎮', '🎁', '👕', '👟', '💊', '🦷', '💇', '📚', '🍺', '🍷', '🥩',
+    '🥦', '🍎', '🥖', '🧃', '🛍️', '💰', '🏖️', '🎟️', '🌿', '🧸', '👶', '📦', '🔑', '🛡️', '🧼', '🪴', '🎵', '🏥', '⚽', '💻']),
+  // Comidas
+  reglas: uniq(['🍔', '🍰', '🥐', '🍟', '🍕', '🥤', '🍫', '🍦', '🍩', '🌭', '🍿', '🍺', '🍪', '🧁', '🥧', '🍮', '🍨', '🍧', '🍬', '🍭',
+    '🥓', '🍗', '🍖', '🌮', '🌯', '🥪', '🥙', '🍝', '🍜', '🍣', '🍤', '🥟', '🍷', '🥂', '🧋', '🥛', '🍞', '🧀', '🍳', '🥞', '🍯', '🍹', '🍸', '☕']),
+  // Planes
+  planes: uniq(['💍', '🎂', '🎄', '🎃', '🎬', '🍽️', '🏖️', '🏔️', '🎉', '✈️', '🧺', '🎮', '🎵', '🛍️', '🎁', '💞', '🚲', '☕', '🎢', '🌅',
+    '🍿', '🎭', '🎤', '🎳', '🏊', '⛷️', '🏕️', '🚗', '🚂', '⛵', '🍷', '🍕', '🍰', '🎨', '📚', '🧘', '💆', '🛁', '🎡', '🎠', '🎪', '⚽',
+    '🏀', '🎾', '🥾', '🌄', '🌇', '🌃', '🎆', '🕯️', '💐', '💝', '💌', '📸', '🎥', '🐶', '🌳', '🌊', '🚤', '🎻', '🎹', '🎲', '🧩', '🏡', '🛶'])
 };
+// Selector de ícono: toca uno de la lista o escribe/pega cualquier emoji (el teclado del celular tiene miles)
 function emojiPicker(id, kind, actual) {
-  return `<input type="hidden" id="${id}" value="${actual || ''}"><div class="emojis">${EMOJIS[kind].map(e => `<button type="button" class="${e === actual ? 'on' : ''}" onclick="pickEmoji('${id}','${e}',this)">${e}</button>`).join('')}</div>`;
+  return `<input id="${id}" class="emo-in" maxlength="8" value="${actual || ''}" placeholder="😀"><div class="emojis">${EMOJIS[kind].map(e => `<button type="button" class="${e === actual ? 'on' : ''}" onclick="pickEmoji('${id}','${e}',this)">${e}</button>`).join('')}</div>`;
 }
 function pickEmoji(id, e, btn) {
   $('#' + id).value = e;

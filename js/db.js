@@ -72,6 +72,12 @@ const DB = {
     const { error } = await this.from('presupuestos').upsert({ mes, categoria, valor }, { onConflict: 'mes,categoria' });
     if (error) throw error;
   },
+  // Renombra la categoría y mueve sus gastos y presupuestos al nombre nuevo
+  async renameCategoria(id, viejo, nuevo) {
+    const a = await this.from('categorias_gasto').update({ nombre: nuevo }).eq('id', id); if (a.error) throw a.error;
+    const b = await this.from('gastos').update({ categoria: nuevo }).eq('categoria', viejo); if (b.error) throw b.error;
+    const c = await this.from('presupuestos').update({ categoria: nuevo }).eq('categoria', viejo); if (c.error) throw c.error;
+  },
   async insertHist(h) { const { error } = await this.from('plan_historial').insert(h); if (error) throw error; },
   async removeHist(id) { const { error } = await this.from('plan_historial').delete().eq('id', id); if (error) throw error; },
   async setTheme(tema) { const { error } = await this.from('profiles').update({ tema }).eq('id', this.user.id); if (error) throw error; },

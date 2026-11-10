@@ -66,9 +66,20 @@ function vComida() {
 
 function formRegla(id) {
   const r = regla(id);
-  openSheet(`<h2>${ico('reglas', r)} ${esc(r.n)}</h2><label>Ícono</label>${emojiPicker('rg_i', 'reglas', ico('reglas', r))}
-  <label>Cuota (veces permitidas)<input id="q" type="number" value="${r.q}"></label><label>Ventana (días)<input id="d" type="number" value="${r.d}"></label><br>
-  <button class="btn" onclick="Data.upd('reglas','${id}',{q:+$('#q').value||1,d:+$('#d').value||7,icono:$('#rg_i').value});closeSheet();render()">Guardar</button>`);
+  openSheet(`<h2>Editar regla</h2>
+  <label>Nombre<input id="rg_n" value="${esc(r.n)}"></label>
+  <label>Ícono (toca uno o escribe el tuyo)</label>${emojiPicker('rg_i', 'reglas', ico('reglas', r))}
+  <label>Cuota (veces permitidas)<input id="q" type="number" min="1" value="${r.q}"></label>
+  <label>Ventana (en días)<input id="d" type="number" min="1" value="${r.d}"></label>
+  <div class="mut" style="margin-top:8px">Ejemplo: cuota 1 y ventana 3 = una vez cada 3 días. Al cambiarla, se recalcula con las comidas ya registradas.</div>
+  <div id="err" class="err"></div><br><button class="btn" onclick="saveRegla('${id}')">Guardar</button>`);
+}
+function saveRegla(id) {
+  const r = regla(id), n = $('#rg_n').value.trim(), q = Math.floor(+$('#q').value), d = Math.floor(+$('#d').value);
+  if (!n) return $('#err').textContent = 'Escribe un nombre';
+  if (!(q >= 1) || !(d >= 1)) return $('#err').textContent = 'La cuota y los días deben ser 1 o más';
+  Data.upd('reglas', id, { n, q, d, icono: $('#rg_i').value || ico('reglas', r) });
+  closeSheet(); render();
 }
 function addReto() { const v = $('#r_n').value.trim(); if (!v) return; Data.add('retos', { texto: v }); render(); }
 function delReto(id) { Data.del('retos', id); render(); }
