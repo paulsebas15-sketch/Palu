@@ -15,7 +15,7 @@ on conflict (id) do nothing;
 -- Categorías de gasto
 insert into categorias_gasto (nombre, tipo, icono) values
   ('Arriendo','fija','🏠'), ('Parqueadero','fija','🚗'), ('Internet','fija','📶'), ('Administración','fija','🏢'), ('Crédito hipotecario','fija','🏦'), ('GYM','fija','🏋️'),
-  ('Mercado','variable','🛒'), ('Servicios públicos','variable','💡'), ('Gas','variable','🔥')
+  ('Mercado','variable','🛒'), ('Servicios públicos','variable','💡'), ('Gas','variable','🔥'), ('Restaurantes','variable','🍽️')
 on conflict (nombre) do nothing;
 
 -- Retos compensatorios

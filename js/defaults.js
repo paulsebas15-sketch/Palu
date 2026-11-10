@@ -6,13 +6,13 @@ const DEFAULTS = {
   // Íconos por defecto (se buscan por id o nombre). Si una categoría/plan nuevo no tiene, se usa el FALLBACK.
   iconos: {
     reglas: { rp: '🍔', po: '🍰', pa: '🥐', fr: '🍟', rb: '🍕', ga: '🥤' },
-    cats: { 'Arriendo': '🏠', 'Parqueadero': '🚗', 'Internet': '📶', 'Administración': '🏢', 'Crédito hipotecario': '🏦', 'GYM': '🏋️', 'Mercado': '🛒', 'Servicios públicos': '💡', 'Gas': '🔥' },
+    cats: { 'Arriendo': '🏠', 'Parqueadero': '🚗', 'Internet': '📶', 'Administración': '🏢', 'Crédito hipotecario': '🏦', 'GYM': '🏋️', 'Mercado': '🛒', 'Servicios públicos': '💡', 'Gas': '🔥', 'Restaurantes': '🍽️' },
     planes: { 'Aniversario de noviazgo': '💍', 'Cumpleaños de Paul': '🎂', 'Cumpleaños de Luisa': '🎂', 'Navidad': '🎄', 'Halloween': '🎃' }
   },
 
   cats: () => [
     ['Arriendo', 'fija'], ['Parqueadero', 'fija'], ['Internet', 'fija'], ['Administración', 'fija'], ['Crédito hipotecario', 'fija'], ['GYM', 'fija'],
-    ['Mercado', 'variable'], ['Servicios públicos', 'variable'], ['Gas', 'variable']
+    ['Mercado', 'variable'], ['Servicios públicos', 'variable'], ['Gas', 'variable'], ['Restaurantes', 'variable']
   ].map(([n, t]) => ({ id: uid(), n, t, icono: DEFAULTS.iconos.cats[n] })),
 
   // q = veces permitidas, d = ventana móvil en días
